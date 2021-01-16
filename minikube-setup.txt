@@ -1,4 +1,4 @@
-How to install kubectl & minikube cluster on EC2
+How to install kubectl & minikube cluster on EC2 ?
 
 Step 1 - install container runtime (docker)
 sudo apt-get update
