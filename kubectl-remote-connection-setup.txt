@@ -1,0 +1,12 @@
+How to configure kubectl to connect minikube cluster running on AWS EC2 instance ?
+Step-1 : install kubectl on window by using below command
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/windows/amd64/kubectl.exe
+Step-2 : copy the following files
+copy the contents of client.crt file from /home/ubuntu/.minikube/profiles/minikube and paste it inside C:\USERS\{user-name}\.kube\client.crt file
+copy the contents of client.key file from /home/ubuntu/.minikube/profiles/minikube and paste it inside C:\USERS\{user-name}\.kube\client.key file
+copy the contents of ca.crt file from /home/ubuntu/.minikube/ and paste it inside C:\USERS\{user-name}\.kube\ca.crt file
+Step-3 : add below inbound security rule
+add port 8443
+Step-4 : execute the below commands
+kubectl config unset clusters.minikube.certificate-authority
+kubectl config set clusters.minikube.insecure-skip-tls-verify true

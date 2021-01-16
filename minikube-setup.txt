@@ -1,0 +1,30 @@
+How to install kubectl & minikube cluster on EC2
+
+Step 1 - install container runtime (docker)
+sudo apt-get update
+sudo apt-get install docker.io -y
+sudo usermod -aG docker ${USER}
+
+Step 2 - install kubectl 
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+Step 3 - install minikube
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+chmod +x minikube
+sudo mv minikube /usr/local/bin/
+
+Step 4 - install conntrack(dependency for minkube)
+sudo apt-get install conntrack
+
+Step 5 - switch to root user & start minikube cluster or skip this step and move to step 6
+sudo -s
+minikube start --driver=none
+
+Step 6 - grant access to login user to access kubernetes config & start minikube cluster
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/
+minikube start --driver=none
